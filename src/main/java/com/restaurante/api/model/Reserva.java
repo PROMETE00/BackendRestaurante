@@ -9,7 +9,8 @@ import java.time.LocalTime;
 @Entity
 @Data
 public class Reserva {
-     @Id
+
+    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
@@ -23,5 +24,9 @@ public class Reserva {
 
     @ManyToOne
     @JoinColumn(name = "mesa_id")
-    private Mesa mesa; // Puedes permitir null si se asigna después
+    private Mesa mesa;
+
+    @ManyToOne
+    @JoinColumn(name = "mesero_id")
+    private Mesero mesero;
 }

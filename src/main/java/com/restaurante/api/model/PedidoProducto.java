@@ -6,11 +6,16 @@ import lombok.Data;
 @Entity
 @Data
 public class PedidoProducto {
+
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    @Column(name = "id_pedido_producto", length = 45)
+    private String idPedidoProducto;
 
     private Integer cantidad;
+
+    @Column(name = "precio_unitario")
+    private Double precioUnitario;
+
     private Double subtotal;
 
     @ManyToOne

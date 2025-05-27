@@ -6,13 +6,17 @@ import lombok.Data;
 @Entity
 @Data
 public class Producto {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    @Column(length = 100, nullable = false)
     private String nombre;
 
-    private Double precio;
+    @Column(length = 50)
+    private String tipo;
 
-    private String descripcion;
+    @Column(precision = 10, scale = 2, nullable = false)
+    private Double precio;
 }

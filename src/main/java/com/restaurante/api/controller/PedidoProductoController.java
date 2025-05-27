@@ -24,23 +24,23 @@ public class PedidoProductoController {
     }
 
     @GetMapping("/{id}")
-    public Optional<PedidoProducto> getById(@PathVariable Integer id) {
+    public Optional<PedidoProducto> getById(@PathVariable String id) {
         return repo.findById(id);
     }
 
     @PostMapping
-    public PedidoProducto create(@RequestBody PedidoProducto pp) {
-        return repo.save(pp);
+    public PedidoProducto create(@RequestBody PedidoProducto pedidoProducto) {
+        return repo.save(pedidoProducto);
     }
 
     @PutMapping("/{id}")
-    public PedidoProducto update(@PathVariable Integer id, @RequestBody PedidoProducto pp) {
-        pp.setId(id);
-        return repo.save(pp);
+    public PedidoProducto update(@PathVariable String id, @RequestBody PedidoProducto pedidoProducto) {
+        pedidoProducto.setIdPedidoProducto(id);
+        return repo.save(pedidoProducto);
     }
 
     @DeleteMapping("/{id}")
-    public void delete(@PathVariable Integer id) {
+    public void delete(@PathVariable String id) {
         repo.deleteById(id);
     }
 }
