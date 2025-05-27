@@ -1,5 +1,6 @@
 package com.restaurante.api.model;
 
+import java.math.BigDecimal;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -18,5 +19,5 @@ public class Producto {
     private String tipo;
 
     @Column(precision = 10, scale = 2, nullable = false)
-    private Double precio;
+    private BigDecimal precio;
 }
