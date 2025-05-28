@@ -11,6 +11,15 @@ public class Mesa {
     private Integer id;
 
     private Integer numero;
-    private Integer capacidad;
+
     private String ubicacion;
+    
+    private Integer capacidad;
+
+    @Column(length = 20)
+    private String estado = "libre"; // valores: libre, reservada, ocupada, atendida
+
+    @ManyToOne
+    @JoinColumn(name = "mesero_id")
+    private Mesero mesero;
 }
