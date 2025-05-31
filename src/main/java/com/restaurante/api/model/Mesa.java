@@ -6,19 +6,23 @@ import lombok.Data;
 @Entity
 @Data
 public class Mesa {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     private Integer numero;
-
-    private String ubicacion;
-    
     private Integer capacidad;
 
-    @Column(length = 20)
-    private String estado = "libre"; // valores: libre, reservada, ocupada, atendida
+    @Column(length = 100)
+    private String ubicacion;
 
+    /** FK a la tabla estado_mesa */
+    @ManyToOne
+    @JoinColumn(name = "estado_id")
+    private EstadoMesa estado;
+
+    /** FK opcional al mesero que la atiende */
     @ManyToOne
     @JoinColumn(name = "mesero_id")
     private Mesero mesero;

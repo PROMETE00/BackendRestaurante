@@ -4,16 +4,14 @@ import jakarta.persistence.*;
 import lombok.Data;
 
 @Entity
+@Table(name = "tipo_producto")   // ⇦  asegura coincidencia con la tabla
 @Data
-public class Cliente {
+public class TipoProducto {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(length = 100, nullable = false)
+    @Column(length = 50, nullable = false)
     private String nombre;
-
-    @Column(length = 20)
-    private String telefono;
 }

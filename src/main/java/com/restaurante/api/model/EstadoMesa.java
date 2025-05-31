@@ -5,15 +5,11 @@ import lombok.Data;
 
 @Entity
 @Data
-public class Cliente {
-
+public class EstadoMesa {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(length = 100, nullable = false)
-    private String nombre;
-
-    @Column(length = 20)
-    private String telefono;
+    @Column(length = 20, nullable = false, unique = true)
+    private String descripcion;   // libre, reservada, ocupada, atendida…
 }
