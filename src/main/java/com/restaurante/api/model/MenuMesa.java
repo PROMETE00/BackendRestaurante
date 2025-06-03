@@ -4,21 +4,22 @@ import jakarta.persistence.*;
 import lombok.Data;
 
 @Entity
-@Table(name = "menu_mesa")
 @Data
+@Table(name = "menu_mesa",
+       uniqueConstraints = @UniqueConstraint(name = "uk_menu_mesa", columnNames = {"mesa_id", "producto_id"}))
 public class MenuMesa {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    /* --- Relaciones --- */
-
-    @ManyToOne(optional = false)
-    @JoinColumn(name = "mesa_id")
+    /* mesa_id */
+    @ManyToOne
+    @JoinColumn(name = "mesa_id", nullable = false)
     private Mesa mesa;
 
-    @ManyToOne(optional = false)
-    @JoinColumn(name = "producto_id")
+    /* producto_id */
+    @ManyToOne
+    @JoinColumn(name = "producto_id", nullable = false)
     private Producto producto;
 }

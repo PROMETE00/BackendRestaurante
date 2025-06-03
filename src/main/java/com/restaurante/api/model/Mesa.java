@@ -26,4 +26,10 @@ public class Mesa {
     @ManyToOne
     @JoinColumn(name = "mesero_id")
     private Mesero mesero;
+
+    @Transient
+    public String getEstadoDescripcion() {
+    return estado != null ? estado.getDescripcion() : "libre";
+}
+
 }
