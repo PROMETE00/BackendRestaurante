@@ -5,42 +5,41 @@ import com.restaurante.api.repository.ProductoIngredienteRepository;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/producto-ingredientes")
 @CrossOrigin(origins = "*")
 public class ProductoIngredienteController {
 
-    private final ProductoIngredienteRepository repo;
+    private ProductoIngredienteRepository productoIngredienteRepository;
 
-    public ProductoIngredienteController(ProductoIngredienteRepository repo) {
-        this.repo = repo;
+    public ProductoIngredienteController(ProductoIngredienteRepository productoIngredienteRepository) {
+        this.productoIngredienteRepository = productoIngredienteRepository;
     }
 
     @GetMapping
-    public List<ProductoIngrediente> getAll() {
-        return repo.findAll();
+    public List<ProductoIngrediente> obtenerTodosLosRegistros() {
+        return productoIngredienteRepository.findAll();
     }
 
     @GetMapping("/{id}")
-    public Optional<ProductoIngrediente> getById(@PathVariable Integer id) {
-        return repo.findById(id);
+    public ProductoIngrediente obtenerRegistroPorId(@PathVariable("id") Integer id) {
+        return productoIngredienteRepository.findById(id).orElse(null);
     }
 
     @PostMapping
-    public ProductoIngrediente create(@RequestBody ProductoIngrediente rel) {
-        return repo.save(rel);
+    public ProductoIngrediente crearRelacion(@RequestBody ProductoIngrediente nuevaRelacion) {
+        return productoIngredienteRepository.save(nuevaRelacion);
     }
 
     @PutMapping("/{id}")
-    public ProductoIngrediente update(@PathVariable Integer id, @RequestBody ProductoIngrediente rel) {
-        rel.setId(id);
-        return repo.save(rel);
+    public ProductoIngrediente actualizarRelacion(@PathVariable("id") Integer id, @RequestBody ProductoIngrediente relacionActualizada) {
+        relacionActualizada.setId(id);
+        return productoIngredienteRepository.save(relacionActualizada);
     }
 
     @DeleteMapping("/{id}")
-    public void delete(@PathVariable Integer id) {
-        repo.deleteById(id);
+    public void eliminarRelacion(@PathVariable("id") Integer id) {
+        productoIngredienteRepository.deleteById(id);
     }
 }
