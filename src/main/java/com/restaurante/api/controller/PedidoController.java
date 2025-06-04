@@ -5,42 +5,41 @@ import com.restaurante.api.repository.PedidoRepository;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/pedidos")
 @CrossOrigin(origins = "*")
 public class PedidoController {
 
-    private final PedidoRepository repo;
+    private PedidoRepository pedidoRepository;
 
-    public PedidoController(PedidoRepository repo) {
-        this.repo = repo;
+    public PedidoController(PedidoRepository pedidoRepository) {
+        this.pedidoRepository = pedidoRepository;
     }
 
     @GetMapping
-    public List<Pedido> getAll() {
-        return repo.findAll();
+    public List<Pedido> obtenerTodosLosPedidos() {
+        return pedidoRepository.findAll();
     }
 
     @GetMapping("/{id}")
-    public Optional<Pedido> getById(@PathVariable Integer id) {
-        return repo.findById(id);
+    public Pedido obtenerPedidoPorId(@PathVariable("id") Integer id) {
+        return pedidoRepository.findById(id).orElse(null);
     }
 
     @PostMapping
-    public Pedido create(@RequestBody Pedido pedido) {
-        return repo.save(pedido);
+    public Pedido crearPedido(@RequestBody Pedido nuevoPedido) {
+        return pedidoRepository.save(nuevoPedido);
     }
 
     @PutMapping("/{id}")
-    public Pedido update(@PathVariable Integer id, @RequestBody Pedido pedido) {
-        pedido.setId(id);
-        return repo.save(pedido);
+    public Pedido actualizarPedido(@PathVariable("id") Integer id, @RequestBody Pedido pedidoActualizado) {
+        pedidoActualizado.setId(id);
+        return pedidoRepository.save(pedidoActualizado);
     }
 
     @DeleteMapping("/{id}")
-    public void delete(@PathVariable Integer id) {
-        repo.deleteById(id);
+    public void eliminarPedido(@PathVariable("id") Integer id) {
+        pedidoRepository.deleteById(id);
     }
 }
