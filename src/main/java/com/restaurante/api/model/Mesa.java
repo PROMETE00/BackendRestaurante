@@ -17,9 +17,7 @@ public class Mesa {
     private Integer capacidad;
 
     @Column(length = 50, nullable = false)
-    private String ubicacion; 
-    // (sigue siendo tu ENUM de ubicacion, ej. "interior","terraza","ventana","jardín","bar").
-    // MySQL ya lo tiene como COLUMN tipo ENUM. Aquí lo mapeamos como String.
+    private String ubicacion;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false, columnDefinition = "ENUM('libre','reservada','ocupada','atendida')")
