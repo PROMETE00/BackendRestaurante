@@ -2,9 +2,11 @@ package com.restaurante.api.model;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Data
+@NoArgsConstructor
 public class Mesa {
 
     @Id
@@ -14,22 +16,22 @@ public class Mesa {
     private Integer numero;
     private Integer capacidad;
 
-    @Column(length = 100)
-    private String ubicacion;
+    @Column(length = 50, nullable = false)
+    private String ubicacion; 
+    // (sigue siendo tu ENUM de ubicacion, ej. "interior","terraza","ventana","jardín","bar").
+    // MySQL ya lo tiene como COLUMN tipo ENUM. Aquí lo mapeamos como String.
 
-    /** FK a la tabla estado_mesa */
-    @ManyToOne
-    @JoinColumn(name = "estado_id")
-    private EstadoMesa estado;
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false, columnDefinition = "ENUM('libre','reservada','ocupada','atendida')")
+    private EstadoMesaEnum estado = EstadoMesaEnum.libre;
+    // Este campo corresponde directamente a la columna "estado" en la tabla "mesa".
 
-    /** FK opcional al mesero que la atiende */
     @ManyToOne
-    @JoinColumn(name = "mesero_id")
+    @JoinColumn(name = "mesero_id", foreignKey = @ForeignKey(name = "fk_mesa_mesero"), nullable = true)
     private Mesero mesero;
-
-    @Transient
+    
+    // (Opcional) Si antes tenías getEstadoDescripcion(), ahora es un simple getter de enum:
     public String getEstadoDescripcion() {
-    return estado != null ? estado.getDescripcion() : "libre";
-}
-
+        return (estado != null) ? estado.name().toLowerCase() : "libre";
+    }
 }

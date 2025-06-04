@@ -1,3 +1,4 @@
+// src/main/java/com/restaurante/api/model/MesaMesero.java
 package com.restaurante.api.model;
 
 import jakarta.persistence.*;
@@ -8,9 +9,10 @@ import java.time.LocalDateTime;
 @Entity
 @Data
 @NoArgsConstructor
-@Table(uniqueConstraints = {
-        @UniqueConstraint(name = "uk_mesa_mesero", columnNames = {"mesa_id", "mesero_id"})
-})
+@Table(
+  name = "mesa_mesero",
+  uniqueConstraints = @UniqueConstraint(name = "uk_mesa_mesero", columnNames = {"mesa_id", "mesero_id"})
+)
 public class MesaMesero {
 
     @Id
@@ -18,11 +20,11 @@ public class MesaMesero {
     private Integer id;
 
     /* --- Relaciones --- */
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "mesa_id", nullable = false)
     private Mesa mesa;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "mesero_id", nullable = false)
     private Mesero mesero;
 
